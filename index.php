@@ -228,14 +228,17 @@ $titles = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <p>Welcome to PENS HUB</p>
+    <title><?= h($titles[$page] ?? 'PENS Event Hub') ?> | PENS Event Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800;900;1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="?page=home">PENS EVENT <span>HUB</span></a>
+    <a class="brand" href="?page=home" aria-label="PENS Event Hub beranda"><img src="assets/logo.png" alt="PENS Event Hub"></a>
     <nav class="nav-links">
       <a href="?page=home" class="<?= $page === 'home' || $page === 'detail' ? 'active' : '' ?>">Daftar Event</a>
       <?php if (is_admin()): ?>
@@ -281,16 +284,25 @@ if ($page === 'home'):
     $total_daftar = (int)$pdo->query("SELECT COUNT(*) FROM pendaftaran WHERE status <> 'batal'")->fetchColumn();
 ?>
   <section class="hero">
-    <div class="wrap">
-      <h1>PENS EVENT <span>HUB</span></h1>
-      <p>Website informasi dan pendaftaran event kampus. Semua seminar, workshop, lomba, dan kegiatan mahasiswa terpusat di satu platform.</p>
-      <div class="stats">
-        <div class="stat"><b><?= $total_event ?></b><small>Event tersedia</small></div>
-        <div class="stat"><b><?= count($kategori) ?></b><small>Kategori</small></div>
-        <div class="stat"><b><?= $total_daftar ?></b><small>Pendaftar</small></div>
-      </div>
+    <div class="hero-card">
+      <img class="zoom zoom-left" src="assets/zoom.png" alt="" aria-hidden="true">
+      <img class="zoom zoom-right" src="assets/zoom.png" alt="" aria-hidden="true">
+      <h1>Temukan Event<br>Kampus <span>Idealmu!</span></h1>
+      <p>Platform terpadu untuk mahasiswa PENS. Jelajahi berbagai kompetisi,<br class="desktop-only"> seminar industri, hingga kegiatan himpunan yang sesuai dengan minat dan bakatmu.</p>
+      <form method="get" class="hero-search">
+        <input type="hidden" name="page" value="home">
+        <input type="hidden" name="kategori" value="<?= $kid ?: '' ?>">
+        <input type="search" name="q" placeholder="Search Event" value="<?= h($q) ?>" aria-label="Cari event">
+        <button type="submit" aria-label="Cari"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg></button>
+      </form>
     </div>
   </section>
+  
+  <section class="section">
+      <div class="section-head">
+        <h2 class="title">Daftar Event Kampus</h2>
+        <span class="count" id="count"><?= count($events) ?> event ditemukan</span>
+      </div>
 
   <div class="wrap">
     <div class="filter">
@@ -311,11 +323,7 @@ if ($page === 'home'):
       </div>
     </div>
 
-    <section class="section">
-      <div class="section-head">
-        <h2 class="title">Daftar Event Kampus</h2>
-        <span class="count" id="count"><?= count($events) ?> event ditemukan</span>
-      </div>
+  
       <div class="grid" id="grid">
         <?php foreach ($events as $e):
             $sisa = (int)$e['kuota'] - (int)$e['terisi'];
@@ -323,6 +331,7 @@ if ($page === 'home'):
             $lewat = $e['tanggal'] < date('Y-m-d');
         ?>
         <article class="card" data-k="<?= (int)$e['id_kategori'] ?>" data-text="<?= h(mb_strtolower($e['nama_event'] . ' ' . $e['lokasi'] . ' ' . $e['deskripsi'])) ?>">
+          <div class="event-poster"><img src="assets/poster.png" alt="Poster event Immersive Fiesta"></div>
           <span class="badge"><?= h($e['nama_kategori']) ?></span>
           <h3><?= h($e['nama_event']) ?></h3>
           <div class="meta">
@@ -333,7 +342,7 @@ if ($page === 'home'):
             <div class="bar"><i class="<?= $pct >= 100 ? 'full' : ($pct >= 80 ? 'hot' : '') ?>" style="width:<?= $pct ?>%"></i></div>
             <div class="quota"><span>Kuota: <?= (int)$e['kuota'] ?></span><span><?= $lewat ? 'Selesai' : ($sisa > 0 ? $sisa . ' kursi tersisa' : 'Penuh') ?></span></div>
           </div>
-          <a class="btn" href="?page=detail&id=<?= (int)$e['id_event'] ?>">Lihat Detail</a>
+          <a class="btn" href="?page=detail&id=<?= (int)$e['id_event'] ?>">Details</a>
         </article>
         <?php endforeach; ?>
         <div class="empty <?= $events ? 'hidden' : '' ?>" id="empty">Tidak ada event yang cocok dengan pencarian Anda.</div>
@@ -573,8 +582,10 @@ elseif ($page === 'peserta'):
 <?php endif; ?>
 </main>
 
-<footer>
-  <div class="wrap"><b>PENS Event Hub</b> &middot; Informasi dan pendaftaran event kampus dalam satu platform.</div>
+<footer class="site-footer">
+  <div class="footer-brand"><img src="assets/logo.png" alt="PENS Event Hub"></div>
+  <div class="footer-about"><b>Pens Event Hub</b><p>Platform terpadu untuk mahasiswa PENS dalam menemukan berbagai peluang pengembangan diri, mulai dari kompetisi, seminar industri, workshop, hingga kegiatan himpunan.</p><strong>Sponsorship</strong><div class="sponsors"><span>alobanks</span><span>BSI</span><span>BRI</span><span>PLN</span></div></div>
+  <div class="footer-contact"><b>Contact Person</b><span>Ghifar<br>0812-8912-2321</span><span>Iqbal<br>0821-9922-1923</span><span>Jonzaven<br>0813-3529-7180</span></div>
 </footer>
 
 <script src="script.js"></script>
