@@ -930,3 +930,329 @@ th {
   height: 100%;
   object-fit: cover;
 }
+
+/* ==========================================================
+   TAMBAHAN: poster upload, simpan event, login mahasiswa
+   ========================================================== */
+.card[hidden] {
+  display: none !important;
+}
+
+/* Tombol simpan (bookmark) & label status di poster kartu */
+.save-form {
+  display: contents;
+}
+.save-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffffe6;
+  color: #34415a;
+  cursor: pointer;
+  box-shadow: 0 3px 10px #0003;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+.save-btn:hover {
+  transform: scale(1.08);
+}
+.save-btn svg,
+.save-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.save-btn.on {
+  background: var(--yellow);
+  color: #171717;
+}
+.save-btn.on svg,
+.save-toggle.on svg {
+  fill: currentColor;
+}
+.reg-pill {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 2;
+  padding: 4px 11px;
+  border-radius: 20px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  box-shadow: 0 3px 10px #0003;
+}
+.reg-pill.hadir {
+  background: #1f9d57;
+}
+.reg-pill.batal {
+  background: var(--red);
+}
+
+/* Detail event */
+.detail-poster {
+  display: block;
+  width: 100%;
+  max-height: 460px;
+  margin: 0 0 22px;
+  border-radius: 16px;
+  object-fit: contain;
+  background: #f1f3f8;
+  cursor: zoom-in;
+}
+.save-inline {
+  margin-top: 18px;
+}
+.save-toggle {
+  gap: 8px;
+}
+.save-toggle.on {
+  background: var(--yellow);
+  color: #171717;
+}
+.mhs-box {
+  margin: 14px 0;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: #f4f6fb;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.mhs-box small {
+  color: var(--muted);
+}
+.hint {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.hint a {
+  color: var(--blue);
+  font-weight: 700;
+}
+.hint.err {
+  min-height: 0;
+  color: #a23434;
+  font-weight: 700;
+}
+.lightbox {
+  cursor: zoom-out;
+}
+.lightbox img {
+  max-width: min(100%, 900px);
+  max-height: 90vh;
+  border-radius: 14px;
+  background: #fff;
+}
+
+/* Form poster (admin) */
+.poster-field {
+  margin: 17px 0;
+}
+.poster-field .lbl {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.dropzone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 6px;
+  min-height: 130px;
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  border: 2px dashed #cdd3df;
+  border-radius: 14px;
+  background: #f8f9fb;
+  transition: 0.2s;
+}
+.dropzone strong {
+  color: #34415a;
+}
+.dropzone:hover,
+.dropzone.drag {
+  border-color: var(--blue);
+  background: #eef2ff;
+}
+.dropzone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  padding: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.poster-preview {
+  display: none;
+  margin-top: 12px;
+}
+.poster-preview.show {
+  display: block;
+}
+.poster-preview img {
+  display: block;
+  width: 100%;
+  max-height: 280px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #f1f3f8;
+  transition: opacity 0.2s;
+}
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.thumb {
+  display: block;
+  width: 68px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #eef0f4;
+}
+
+/* Login / registrasi mahasiswa */
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 18px 0 6px;
+  padding: 5px;
+  border-radius: 14px;
+  background: #eef0f4;
+}
+.auth-tabs a {
+  padding: 9px 0;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: #6b7385;
+  font-size: 13px;
+  font-weight: 800;
+}
+.auth-tabs a.on {
+  background: #fff;
+  color: var(--blue);
+  box-shadow: 0 2px 8px #18284a14;
+}
+
+/* Halaman Event Saya */
+.account {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin: 0 0 30px;
+}
+.avatar {
+  width: 56px;
+  height: 56px;
+  flex: none;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--blue);
+  color: #fff;
+  font-size: 24px;
+  font-weight: 900;
+}
+.account-info {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+  flex: 1 1 220px;
+}
+.account-info b {
+  font-size: 19px;
+}
+.account-info span {
+  color: var(--muted);
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.account-stats {
+  display: flex;
+  gap: 10px;
+}
+.account-stats div {
+  min-width: 78px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #f4f6fb;
+  text-align: center;
+}
+.account-stats b {
+  display: block;
+  font-size: 22px;
+  line-height: 1.1;
+}
+.account-stats span {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+.tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 28px;
+}
+.tab {
+  padding: 9px 20px;
+  border-radius: 22px;
+  background: #e4e6eb;
+  color: #6b7385;
+  text-decoration: none;
+  font:
+    700 13px "Nunito Sans",
+    sans-serif;
+  transition: 0.18s;
+}
+.tab:hover,
+.tab.on {
+  background: var(--blue);
+  color: #fff;
+}
+
+/* Navigasi: muat 4 tautan di layar kecil */
+@media (max-width: 760px) {
+  .nav-links {
+    gap: 6px;
+  }
+  .nav-links a {
+    min-width: 0;
+    padding: 0 11px;
+    font-size: 11px;
+  }
+  .account-stats {
+    width: 100%;
+  }
+  .account-stats div {
+    flex: 1;
+  }
+}
