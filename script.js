@@ -1,6 +1,3 @@
-/* PENS Event Hub - script.js
-   Semua fitur bersifat progressive enhancement: halaman tetap berfungsi
-   (lewat form biasa) jika JavaScript dimatikan. */
 (function () {
   'use strict';
 
