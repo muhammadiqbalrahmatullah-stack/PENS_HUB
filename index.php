@@ -22,7 +22,7 @@ try {
 } catch (PDOException $e) {
     http_response_code(500);
     die('<h2>Koneksi database gagal</h2><p>Periksa konfigurasi DB di bagian atas index.php.</p><pre>' . htmlspecialchars($e->getMessage()) . '</pre>');
-}
+} 
 
 $pdo->exec("CREATE TABLE IF NOT EXISTS kategori (
     id_kategori INT AUTO_INCREMENT PRIMARY KEY,
